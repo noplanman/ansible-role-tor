@@ -1,0 +1,6 @@
+---
+
+- include: install.yml
+  tags: tor:install
+- include: configure.yml
+  tags: tor:configure

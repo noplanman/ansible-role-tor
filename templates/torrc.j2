@@ -1,0 +1,58 @@
+# {{ ansible_managed }}
+
+RunAsDaemon {{ tor_run_as_daemon|int }}
+{% if tor_proxy %}
+# Tor proxy
+{% if tor_socks_port is iterable %}
+{% for socks_port in tor_socks_port %}
+SOCKSPort {{ socks_port }}
+{% endfor %}
+{% else %}
+SOCKSPort {{ tor_socks_port }}
+{% endif %}
+{% else %}
+SOCKSPort 0
+{% endif %}
+{% if tor_control_port is defined %}
+ControlPort {{ tor_control_port }}
+CookieAuthentication 1
+{% endif %}
+
+{% if tor_relay %}
+# Tor relay
+ORPort {{ tor_or_port }}
+DirPort {{ tor_dir_port }}
+{% if tor_relay_bandwidth_rate is defined %}
+RelayBandwidthRate {{ tor_relay_bandwidth_rate }}
+{% endif %}
+{% if tor_relay_bandwidth_burst is defined %}
+RelayBandwidthBurst {{ tor_relay_bandwidth_burst }}
+{% endif %}
+Nickname {{ tor_nickname }}
+{% if tor_accounting_max is defined %}
+AccountingMax {{ tor_accounting_max }}
+{% endif %}
+{% if tor_accounting_start is defined %}
+AccountingStart {{ tor_accounting_start }}
+{% endif %}
+ExitPolicy {{ tor_exit_policy }}
+DirPortFrontPage /etc/tor/tor-exit-notice.html
+{% endif %}
+
+{% if tor_hidden_services %}
+# Hidden services
+{% for hidden_service in tor_hidden_services %}
+HiddenServiceDir {{ tor_hidden_service_dir }}/{{ hidden_service.name }}
+{% if hidden_service.version is defined or tor_hidden_service_version is defined %}
+HiddenServiceVersion {{ hidden_service.version|default(tor_hidden_service_version) }}
+{% endif %}
+HiddenServicePort {{ hidden_service.port }} {{ hidden_service.host }}
+{% endfor %}
+{% endif %}
+
+{% if tor_address_maps %}
+# Address mappings
+{% for address_map in tor_address_maps %}
+MapAddress {{ address_map.from }} {{ address_map.to }}
+{% endfor %}
+{% endif %}

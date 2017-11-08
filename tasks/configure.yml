@@ -1,0 +1,53 @@
+---
+
+- name: Ensure tor configuration
+  template:
+    src: torrc.j2
+    dest: /etc/tor/torrc
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify: restart tor
+
+- name: Add tor exit notice page
+  template:
+    src: tor-exit-notice.html.j2
+    dest: /etc/tor/tor-exit-notice.html
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  notify: restart tor
+
+- name: Add hidden service directories
+  file:
+    dest: "{{ tor_hidden_service_dir }}/{{ item.name }}"
+    state: directory
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
+    mode: 0700
+  with_list: "{{ tor_hidden_services }}"
+  notify: restart tor
+
+- name: Add hidden service hostnames
+  copy:
+    src: "{{ item.hostname_file }}"
+    dest: "{{ tor_hidden_service_dir }}/{{ item.name }}/hostname"
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
+    mode: 0600
+  with_list: "{{ tor_hidden_services }}"
+  when: item.hostname_file is defined
+  notify: restart tor
+
+- name: Add hidden service private keys
+  copy:
+    src: "{{ item.private_key_file }}"
+    dest: "{{ tor_hidden_service_dir }}/{{ item.name }}/private_key"
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
+    mode: 0600
+  with_list: "{{ tor_hidden_services }}"
+  when: item.private_key_file is defined
+  notify: restart tor

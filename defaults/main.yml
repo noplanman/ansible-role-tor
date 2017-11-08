@@ -1,0 +1,38 @@
+---
+
+tor_user: "debian-tor"
+tor_group: "debian-tor"
+tor_relay: no
+tor_proxy: no
+tor_run_as_daemon: yes
+tor_or_port: 9001
+tor_dir_port: 9030
+tor_socks_port: 9050
+tor_nickname: "clearly-not-updated"
+tor_exit_policy: "reject *:*"
+tor_exit_notice_text: ""
+tor_install_arm: no
+tor_install_nyx: no # Requires pip
+
+#Optional
+#tor_relay_bandwidth_rate: "777 KB"
+#tor_relay_bandwidth_burst: "1551 KB"
+#tor_accounting_max: "888 GB"
+#tor_accounting_start: "month 3 13:37"
+
+tor_address_maps: []
+#  - from: example.com
+#    to: example.com.ABC123.exit
+
+tor_hidden_service_dir: "/home/{{ tor_user }}/hidden_services"
+#tor_hidden_service_version: 2
+tor_hidden_services: []
+#  - name: ssh
+#    port: 12345
+#    host: "127.0.0.1:22"
+#    hostname_file: "hidden-services/ssh.hostname"
+#    private_key_file: "hidden-services/ssh.private_key"
+#  - name: http
+#    version: 2
+#    port: 8080
+#    host: "127.0.0.1:80"

@@ -1,0 +1,26 @@
+---
+
+- name: Update sources
+  apt: update_cache=yes cache_valid_time=86400
+  changed_when: no
+  when: ansible_os_family == 'Debian'
+
+- name: Install tor
+  package:
+    name: tor
+    default_release: "{{ tor_default_release|default(omit) }}"
+
+- name: Install nyx
+  pip:
+    name: nyx
+  when: tor_install_nyx
+
+- name: Install arm
+  apt:
+    name: tor-arm
+  when: tor_install_arm and ansible_os_family == 'Debian'
+
+- name: Install arm
+  package:
+    name: https://www.atagar.com/arm/resources/static/arm-1.4.5.0-1.rpm
+  when: tor_install_arm and ansible_os_family == 'RedHat'
