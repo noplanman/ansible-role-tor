@@ -2,10 +2,12 @@
 dependencies: []
 
 galaxy_info:
-  author: Armando Lüscher
+  role_name: tor
   description: Install and run tor on a RedHat or Debian-like system.
+  author: Armando Lüscher
   license: MIT
   min_ansible_version: 2.0.0.0
+  issue_tracker_url: https://git.feneas.org/noplanman/ansible-role-tor/issues
   platforms:
     - name: EL
       versions:
@@ -13,6 +15,7 @@ galaxy_info:
         - 6
     - name: Ubuntu
       versions:
+        - bionic
         - xenial
         - trusty
         - precise
