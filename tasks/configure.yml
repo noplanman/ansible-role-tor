@@ -41,7 +41,7 @@
   when: item.hostname_file is defined
   notify: restart tor
 
-- name: Add hidden service private keys
+- name: Add hidden service private keys (v2)
   copy:
     src: "{{ item.private_key_file }}"
     dest: "{{ tor_hidden_service_dir }}/{{ item.name }}/private_key"
@@ -49,5 +49,33 @@
     group: "{{ tor_group }}"
     mode: 0600
   with_list: "{{ tor_hidden_services }}"
-  when: item.private_key_file is defined
+  when:
+    - item.private_key_file is defined
+    - (item.version|default(tor_hidden_service_version))|int == 2
+  notify: restart tor
+
+- name: Add hidden service secret keys (v3)
+  copy:
+    src: "{{ item.secret_key_file }}"
+    dest: "{{ tor_hidden_service_dir }}/{{ item.name }}/hs_ed25519_secret_key"
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
+    mode: 0600
+  with_list: "{{ tor_hidden_services }}"
+  when:
+    - item.secret_key_file is defined
+    - (item.version|default(tor_hidden_service_version))|int == 3
+  notify: restart tor
+
+- name: Add hidden service public keys (v3)
+  copy:
+    src: "{{ item.public_key_file }}"
+    dest: "{{ tor_hidden_service_dir }}/{{ item.name }}/hs_ed25519_public_key"
+    owner: "{{ tor_user }}"
+    group: "{{ tor_group }}"
+    mode: 0600
+  with_list: "{{ tor_hidden_services }}"
+  when:
+    - item.public_key_file is defined
+    - (item.version|default(tor_hidden_service_version))|int == 3
   notify: restart tor

@@ -2,17 +2,17 @@
 
 tor_user: "debian-tor"
 tor_group: "debian-tor"
-tor_relay: no
-tor_proxy: no
-tor_run_as_daemon: yes
+tor_relay: false
+tor_proxy: false
+tor_run_as_daemon: true
 tor_or_port: 9001
 tor_dir_port: 9030
 tor_socks_port: 9050
 tor_nickname: "clearly-not-updated"
 tor_exit_policy: "reject *:*"
 tor_exit_notice_text: ""
-tor_install_arm: no
-tor_install_nyx: no # Requires pip
+tor_install_arm: false
+tor_install_nyx: false # Requires pip (e.g. via geerlingguy.pip)
 
 #Optional
 #tor_relay_bandwidth_rate: "777 KB"
@@ -25,14 +25,18 @@ tor_address_maps: []
 #    to: example.com.ABC123.exit
 
 tor_hidden_service_dir: "/home/{{ tor_user }}/hidden_services"
-#tor_hidden_service_version: 2
+tor_hidden_service_version: 3
 tor_hidden_services: []
 #  - name: ssh
 #    port: 12345
 #    host: "127.0.0.1:22"
+#    version: 3
 #    hostname_file: "hidden-services/ssh.hostname"
-#    private_key_file: "hidden-services/ssh.private_key"
+#    secret_key_file: "hidden-services/ssh.secret_key" # required for v3
+#    public_key_file: "hidden-services/ssh.public_key" # required for v3
 #  - name: http
 #    version: 2
 #    port: 8080
 #    host: "127.0.0.1:80"
+#    hostname_file: "hidden-services/http.hostname"
+#    private_key_file: "hidden-services/http.private_key" # required for v2

@@ -1,4 +1,4 @@
 ---
 
 - name: restart tor
-  service: name=tor state=restarted enabled=yes
+  service: name=tor state=restarted enabled=true
