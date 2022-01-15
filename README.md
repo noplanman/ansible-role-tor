@@ -4,9 +4,9 @@
 
 ---
 
-:rocket: Development has moved to **[git.feneas.org]**.
+:rocket: Development has moved to **[gitlab.com]**.
 
-(The repository on GitHub is only a mirror, so fork on Feneas to contribute. No registration needed, just sign in with your GitHub account.)
+(The repository on GitHub is only a mirror, so fork on GitLab to contribute. No registration needed, just sign in with your GitHub account.)
 
 ---
 
@@ -50,7 +50,7 @@ MIT
 [travis-tests]: https://travis-ci.org/noplanman/ansible-role-tor "Travis-CI Tests"
 [ansible-role-shield]: https://img.shields.io/ansible/role/21806.svg?style=flat-square "Tor on Ansible Galaxy"
 [ansible-role]: https://galaxy.ansible.com/noplanman/tor "Tor on Ansible Galaxy"
-[git.feneas.org]: https://git.feneas.org/noplanman/ansible-role-tor "Ansible Role Tor on Feneas"
+[gitlab.com]: https://gitlab.com/noplanman/ansible-role-tor "Ansible Role Tor on GitLab"
 [Tor]: https://www.torproject.org/ "Tor Project"
-[defaults]: https://git.feneas.org/noplanman/ansible-role-tor/blob/master/defaults/main.yml "Default variables"
-[`tests`]: https://git.feneas.org/noplanman/ansible-role-tor/tree/master/tests "Tests"
+[defaults]: https://gitlab.com/noplanman/ansible-role-tor/blob/master/defaults/main.yml "Default variables"
+[`tests`]: https://gitlab.com/noplanman/ansible-role-tor/tree/master/tests "Tests"
